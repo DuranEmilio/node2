@@ -5,13 +5,10 @@ require("dotenv").config();
 const LicenciaStatus = sequelize.define(
   "LicenciaStatus",
   {
-    id_status_licencia: {
+    id: {
       type: DataTypes.UUID,
       defaultValue: Sequelize.UUIDV1,
       primaryKey: true,
-    },
-    description: {
-      type: DataTypes.STRING,
     },
     createdAt: {
       type: DataTypes.DATE,

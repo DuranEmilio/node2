@@ -9,6 +9,6 @@ const app = express();
 app.use(morgan('dev'));
 app.use(json());
 
-app.use("/api/yimiUsers.routes", yimiUsersRoutes);
+app.use("/api/yimiUsers", yimiUsersRoutes);
 
 module.exports = app;
