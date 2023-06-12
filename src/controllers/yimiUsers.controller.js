@@ -1,5 +1,12 @@
 const { LicenciaUsuario } = require("../models/yimiusers.model");
 
+async function getLicences(req, res) {
+  const licences = await LicenciaUsuario.findAll();
+  res.json({
+    data: licences,
+  });
+}
+
 async function newLicence(req, res) {
   const {
     fecha_inicio,
@@ -45,10 +52,10 @@ async function newLicence(req, res) {
     }
   } catch (error) {
     return res.status(500).json({
-        code: "000",
-        message: error.message 
+      code: "000",
+      message: error.message,
     });
   }
 }
 
-module.exports = { newLicence };
+module.exports = { newLicence, getLicences };
