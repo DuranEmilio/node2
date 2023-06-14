@@ -17,6 +17,6 @@ router.get("/:id", getOneLicence);
 router.delete("/:id", deleteLicence);
 router.put("/:id", updateLicence);
 
-router.get("/status/:id", getLicencesByStatus);
+router.get("/status/:fk_id_status_licencia", getLicencesByStatus);
 
 module.exports = router;
