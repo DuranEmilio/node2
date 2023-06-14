@@ -128,7 +128,7 @@ async function deleteLicence(req, res) {
     });
   }
 }
-// no funciona correctamente
+
 async function updateLicence(req, res) {
   const { id } = req.params;
   if (!id) {
@@ -149,33 +149,21 @@ async function updateLicence(req, res) {
       fk_id_pasarela,
       fk_id_status_licencia,
     } = req.body;
-    const licence = await LicenciaUsuario.findAll({
-      attributes: [
-        fecha_inicio,
-        fecha_fin,
-        fecha_pausa,
-        dias_restantes_pausa,
-        prueba_gratis,
-        fk_id_usuario,
-        fk_id_licencia,
-        fk_id_pasarela,
-        fk_id_status_licencia,
-      ],
-      where: {
-        id,
-      },
-    });
-    if (licence.length > 0) {
-      licence.forEach(async (licences) => {
-        await licences.update({
-          fecha_inicio,
-          fecha_fin,
-          fecha_pausa,
-          dias_restantes_pausa,
-          prueba_gratis,
-        });
-      });
-    }
+    const dataLicence = {
+      fecha_inicio,
+      fecha_fin,
+      fecha_pausa,
+      dias_restantes_pausa,
+      prueba_gratis,
+      fk_id_usuario,
+      fk_id_licencia,
+      fk_id_pasarela,
+      fk_id_status_licencia,
+    };
+    const dataWhere = {
+      id,
+    };
+    const licence = await updateLicenceByWhere(dataLicence, dataWhere)
     return res.json({
       code: "002",
       message: "Licencia actualizada",
@@ -215,6 +203,16 @@ async function getLicencesByStatus(req, res) {
       error: "Internal server error",
     });
   }
+}
+
+async function updateLicenceByWhere(dataLicence, dataWhere) {
+  return new Promise(async (resolve, reject) => {
+    resolve (await LicenciaUsuario.update(dataLicence, {
+      where: dataWhere,
+    }));
+    resolve(true);
+    reject(false);
+  })
 }
 
 module.exports = {
